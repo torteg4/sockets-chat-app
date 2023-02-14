@@ -17,6 +17,11 @@ const Chat = props => {
         return () =>socket.disconnect(true);
     }, [])
 
+    socket.on("sending_to_client", (data) =>{
+        console.log("Message received from server:", data)
+        setMessages((prevState) => [...prevState, data]);
+    })
+
     const sendMessage = (e) => {
         e.preventDefault();
         socket.emit("sending_message", msg);
@@ -24,6 +29,11 @@ const Chat = props => {
     }
 
     return (
+
+    <>
+        {messages.map((m,i) => {
+            return <h4 key ={i}> {m} </h4>
+        })}
 
         <form onSubmit={sendMessage}>
             <input 
@@ -34,6 +44,7 @@ const Chat = props => {
                 />
 
         </form>
+    </>
     )
 };
 

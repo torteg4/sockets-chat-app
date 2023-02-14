@@ -32,5 +32,10 @@ io.on("connection", (socket) => {
     io.emit("data_returned_from_server", data)
     })
 
+    socket.on("sending_message", (data) => {
+        console.log("Message:", data);
+        // need to send things back and forth from client 
+        io.emit("sending_to_client", data);
+    })
 
 })
